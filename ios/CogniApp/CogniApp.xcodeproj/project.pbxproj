@@ -1,0 +1,515 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5F85B48E02E07DB2D1948D55 /* CogniAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65230084FB8276051E0CE61D /* CogniAppApp.swift */; };
+		34A8A5AF971750513E2A77E4 /* PracticeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72621C266A0BF14BB4E75E2 /* PracticeCard.swift */; };
+		9E0FA714CC020ED5A5CF709B /* PracticeDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A9151FF18D89F4E76A7A84 /* PracticeDeck.swift */; };
+		3A41A1B926BBC7C6FEFFD96D /* FeedbackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54AC893AA81BB2D29666748 /* FeedbackState.swift */; };
+		BE6F7A57C103FD1FAD25711C /* CardOutcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA99592176B10173C394BCB /* CardOutcome.swift */; };
+		69A61C9CB31117C3CBCF72DC /* SessionCardResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A603A4DC91EE499D00027B /* SessionCardResult.swift */; };
+		2FDB0E199358B93CD41F9273 /* PracticeDeckRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D478A61FE87D0D0CD27D3110 /* PracticeDeckRepository.swift */; };
+		CF03D9578C34BA6800A3705B /* PracticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F094FC01337643444566A5 /* PracticeViewModel.swift */; };
+		0B7801C9C9C5472C1C1F47C9 /* CogniAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D340990EE301A9B1AF45A37 /* CogniAudioController.swift */; };
+		FE12655B3721DD948C991AFA /* SpeechRecognizerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D3AC5E0D26C5513224D0FF /* SpeechRecognizerManager.swift */; };
+		7A05C3F881ED7BC1959D6B91 /* CogniColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C901318C13C4BA446818CC5 /* CogniColors.swift */; };
+		AF6D7C14B34E35F434094EDC /* CogniTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFFC1B1C2AD0993FD6358C6 /* CogniTypography.swift */; };
+		1E38544F9B7B55CABDD7516A /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAD617855F363BEB9F4D052 /* SplashView.swift */; };
+		58E832BAF826AFE1314A37E9 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199407B74209C872967CC475 /* HomeScreen.swift */; };
+		93FFA2C1CA07F120B228910A /* DeckPickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA273637E66FFD530E8ABFB /* DeckPickerDialog.swift */; };
+		BA69DE426EAF9A804764D554 /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A67D0A365FCFBF24DAB9AE /* ResultsView.swift */; };
+		CA261A41F27F6FCF09E5FDF1 /* GameScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D5165F72C0048BD8CE12 /* GameScreen.swift */; };
+		AAC0C6E2095C18E06EE9C300 /* ambient_calm_loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = EDBC0E35C1289DE653B4B9B8 /* ambient_calm_loop.wav */; };
+		536C1F7229F32371F19E0950 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5711A4F8FE991CF76A72175 /* Assets.xcassets */; };
+		2E266D8969ED18D539C87949 /* CogniAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D620986C37CDE157B67EC27 /* CogniAppTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C66CA0D7F83D55F4422B4805 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 79A9AB90EFC2AD13C9FCE34F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8231DEEC3DE1CD735390946C;
+			remoteInfo = CogniApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		65230084FB8276051E0CE61D /* CogniAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CogniAppApp.swift"; sourceTree = "<group>"; };
+		C72621C266A0BF14BB4E75E2 /* PracticeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PracticeCard.swift"; sourceTree = "<group>"; };
+		65A9151FF18D89F4E76A7A84 /* PracticeDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PracticeDeck.swift"; sourceTree = "<group>"; };
+		D54AC893AA81BB2D29666748 /* FeedbackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedbackState.swift"; sourceTree = "<group>"; };
+		1DA99592176B10173C394BCB /* CardOutcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CardOutcome.swift"; sourceTree = "<group>"; };
+		E9A603A4DC91EE499D00027B /* SessionCardResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SessionCardResult.swift"; sourceTree = "<group>"; };
+		D478A61FE87D0D0CD27D3110 /* PracticeDeckRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PracticeDeckRepository.swift"; sourceTree = "<group>"; };
+		E6F094FC01337643444566A5 /* PracticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PracticeViewModel.swift"; sourceTree = "<group>"; };
+		7D340990EE301A9B1AF45A37 /* CogniAudioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CogniAudioController.swift"; sourceTree = "<group>"; };
+		12D3AC5E0D26C5513224D0FF /* SpeechRecognizerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpeechRecognizerManager.swift"; sourceTree = "<group>"; };
+		5C901318C13C4BA446818CC5 /* CogniColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CogniColors.swift"; sourceTree = "<group>"; };
+		9DFFC1B1C2AD0993FD6358C6 /* CogniTypography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CogniTypography.swift"; sourceTree = "<group>"; };
+		DAAD617855F363BEB9F4D052 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SplashView.swift"; sourceTree = "<group>"; };
+		199407B74209C872967CC475 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeScreen.swift"; sourceTree = "<group>"; };
+		4CA273637E66FFD530E8ABFB /* DeckPickerDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeckPickerDialog.swift"; sourceTree = "<group>"; };
+		49A67D0A365FCFBF24DAB9AE /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ResultsView.swift"; sourceTree = "<group>"; };
+		4CB4D5165F72C0048BD8CE12 /* GameScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScreen.swift"; sourceTree = "<group>"; };
+		EDBC0E35C1289DE653B4B9B8 /* ambient_calm_loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ambient_calm_loop.wav"; sourceTree = "<group>"; };
+		49C50622C93AD236274A54D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info.plist"; sourceTree = "<group>"; };
+		F5711A4F8FE991CF76A72175 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets.xcassets"; sourceTree = "<group>"; };
+		6D620986C37CDE157B67EC27 /* CogniAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CogniAppTests.swift"; sourceTree = "<group>"; };
+		5865A0AAD29CE09432332F5A /* CogniApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CogniApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		27A46D1D2B29225CF1250746 /* CogniAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CogniAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2E736DC4E22966F765AB4C91 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C30D85AB3B7FEDE4A3D69A90 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9A8B43CBE6F2BC30E9B762E7 = {
+			isa = PBXGroup;
+			children = (
+				0E5EA55B00962DCEB3E1F3C6 /* CogniApp */,
+				D9850D234A9E849DA1B12BBE /* CogniAppTests */,
+				5C3301D8292DBACEA69EE035 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0E5EA55B00962DCEB3E1F3C6 /* CogniApp */ = {
+			isa = PBXGroup;
+			children = (
+				57591210E5E3717F7205739E /* App */,
+				1EA5FE75E2352406DC9F4345 /* Models */,
+				2E41745E11116D744A86CF3F /* Data */,
+				C51289E1A8124B6C9D47CACA /* ViewModels */,
+				C891371C5EA26E72DA7BBE89 /* Audio */,
+				7C50BD5B1773BFD50EFB5CCC /* Theme */,
+				D778815D691A486EF850AB00 /* Views */,
+				EE70B022B802CA5D60D152A8 /* Resources */,
+				F5711A4F8FE991CF76A72175 /* Assets.xcassets */,
+			);
+			path = CogniApp;
+			sourceTree = "<group>";
+		};
+		D9850D234A9E849DA1B12BBE /* CogniAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				6D620986C37CDE157B67EC27 /* CogniAppTests.swift */,
+			);
+			path = CogniAppTests;
+			sourceTree = "<group>";
+		};
+		57591210E5E3717F7205739E /* App */ = {
+			isa = PBXGroup;
+			children = (
+				65230084FB8276051E0CE61D /* CogniAppApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		1EA5FE75E2352406DC9F4345 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C72621C266A0BF14BB4E75E2 /* PracticeCard.swift */,
+				65A9151FF18D89F4E76A7A84 /* PracticeDeck.swift */,
+				D54AC893AA81BB2D29666748 /* FeedbackState.swift */,
+				1DA99592176B10173C394BCB /* CardOutcome.swift */,
+				E9A603A4DC91EE499D00027B /* SessionCardResult.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		2E41745E11116D744A86CF3F /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				D478A61FE87D0D0CD27D3110 /* PracticeDeckRepository.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		C51289E1A8124B6C9D47CACA /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				E6F094FC01337643444566A5 /* PracticeViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		C891371C5EA26E72DA7BBE89 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				7D340990EE301A9B1AF45A37 /* CogniAudioController.swift */,
+				12D3AC5E0D26C5513224D0FF /* SpeechRecognizerManager.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		7C50BD5B1773BFD50EFB5CCC /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				5C901318C13C4BA446818CC5 /* CogniColors.swift */,
+				9DFFC1B1C2AD0993FD6358C6 /* CogniTypography.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		D778815D691A486EF850AB00 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DAAD617855F363BEB9F4D052 /* SplashView.swift */,
+				199407B74209C872967CC475 /* HomeScreen.swift */,
+				4CA273637E66FFD530E8ABFB /* DeckPickerDialog.swift */,
+				49A67D0A365FCFBF24DAB9AE /* ResultsView.swift */,
+				4CB4D5165F72C0048BD8CE12 /* GameScreen.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		EE70B022B802CA5D60D152A8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EDBC0E35C1289DE653B4B9B8 /* ambient_calm_loop.wav */,
+				49C50622C93AD236274A54D0 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		5C3301D8292DBACEA69EE035 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5865A0AAD29CE09432332F5A /* CogniApp.app */,
+				27A46D1D2B29225CF1250746 /* CogniAppTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8231DEEC3DE1CD735390946C /* CogniApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 843DC471AAF26AC8174F311B /* Build configuration list for PBXNativeTarget "CogniApp" */;
+			buildPhases = (
+				8BB8ABC24AB723F99D4DD920 /* Sources */,
+				2E736DC4E22966F765AB4C91 /* Frameworks */,
+				01CC597ABAD15DB9D2376BE0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CogniApp;
+			productName = CogniApp;
+			productReference = 5865A0AAD29CE09432332F5A /* CogniApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7BFBCAE825F891DA12754472 /* CogniAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF1E5DCCB24C2EE9ABF0E4A3 /* Build configuration list for PBXNativeTarget "CogniAppTests" */;
+			buildPhases = (
+				538D3E49D70BE382997AA76F /* Sources */,
+				C30D85AB3B7FEDE4A3D69A90 /* Frameworks */,
+				DCB799FE92A6D2CDBAB03903 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				979911CB07F5A38733E95656 /* PBXTargetDependency */,
+			);
+			name = CogniAppTests;
+			productName = CogniAppTests;
+			productReference = 27A46D1D2B29225CF1250746 /* CogniAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		79A9AB90EFC2AD13C9FCE34F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					8231DEEC3DE1CD735390946C = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					7BFBCAE825F891DA12754472 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 8231DEEC3DE1CD735390946C;
+					};
+				};
+			};
+			buildConfigurationList = 1E701A5F9C80F4B5DADD1F3C /* Build configuration list for PBXProject "CogniApp" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9A8B43CBE6F2BC30E9B762E7;
+			productRefGroup = 5C3301D8292DBACEA69EE035 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8231DEEC3DE1CD735390946C /* CogniApp */,
+				7BFBCAE825F891DA12754472 /* CogniAppTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		01CC597ABAD15DB9D2376BE0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAC0C6E2095C18E06EE9C300 /* ambient_calm_loop.wav in Resources */,
+				536C1F7229F32371F19E0950 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCB799FE92A6D2CDBAB03903 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8BB8ABC24AB723F99D4DD920 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5F85B48E02E07DB2D1948D55 /* CogniAppApp.swift in Sources */,
+				34A8A5AF971750513E2A77E4 /* PracticeCard.swift in Sources */,
+				9E0FA714CC020ED5A5CF709B /* PracticeDeck.swift in Sources */,
+				3A41A1B926BBC7C6FEFFD96D /* FeedbackState.swift in Sources */,
+				BE6F7A57C103FD1FAD25711C /* CardOutcome.swift in Sources */,
+				69A61C9CB31117C3CBCF72DC /* SessionCardResult.swift in Sources */,
+				2FDB0E199358B93CD41F9273 /* PracticeDeckRepository.swift in Sources */,
+				CF03D9578C34BA6800A3705B /* PracticeViewModel.swift in Sources */,
+				0B7801C9C9C5472C1C1F47C9 /* CogniAudioController.swift in Sources */,
+				FE12655B3721DD948C991AFA /* SpeechRecognizerManager.swift in Sources */,
+				7A05C3F881ED7BC1959D6B91 /* CogniColors.swift in Sources */,
+				AF6D7C14B34E35F434094EDC /* CogniTypography.swift in Sources */,
+				1E38544F9B7B55CABDD7516A /* SplashView.swift in Sources */,
+				58E832BAF826AFE1314A37E9 /* HomeScreen.swift in Sources */,
+				93FFA2C1CA07F120B228910A /* DeckPickerDialog.swift in Sources */,
+				BA69DE426EAF9A804764D554 /* ResultsView.swift in Sources */,
+				CA261A41F27F6FCF09E5FDF1 /* GameScreen.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		538D3E49D70BE382997AA76F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E266D8969ED18D539C87949 /* CogniAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		979911CB07F5A38733E95656 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8231DEEC3DE1CD735390946C /* CogniApp */;
+			targetProxy = C66CA0D7F83D55F4422B4805 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		B2CF7F972D1DBC1A633CE9F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9A9AF284EF55E9B60F533F54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C620E42DFDAA3359437DD19C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = CogniApp/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cogniapp.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7FCF9D0EFBC43FF43E6BA577 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = CogniApp/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cogniapp.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		91B33B5014DEA1B88BE65031 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cogniapp.ios.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CogniApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CogniApp";
+			};
+			name = Debug;
+		};
+		CB5211BEF7B406981D824A23 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cogniapp.ios.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CogniApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CogniApp";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1E701A5F9C80F4B5DADD1F3C /* Build configuration list for PBXProject "CogniApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B2CF7F972D1DBC1A633CE9F2 /* Debug */,
+				9A9AF284EF55E9B60F533F54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		843DC471AAF26AC8174F311B /* Build configuration list for PBXNativeTarget "CogniApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C620E42DFDAA3359437DD19C /* Debug */,
+				7FCF9D0EFBC43FF43E6BA577 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BF1E5DCCB24C2EE9ABF0E4A3 /* Build configuration list for PBXNativeTarget "CogniAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91B33B5014DEA1B88BE65031 /* Debug */,
+				CB5211BEF7B406981D824A23 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 79A9AB90EFC2AD13C9FCE34F /* Project object */;
+}

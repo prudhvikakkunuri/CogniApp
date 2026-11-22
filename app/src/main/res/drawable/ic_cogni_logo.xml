@@ -1,0 +1,32 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Outer circle in soft pine tint -->
+    <path
+        android:fillColor="#E7F0EC"
+        android:pathData="M54,54m-46,0a46,46 0,1 1,92 0a46,46 0,1 1,-92 0" />
+    <!-- Outline border in Deep Pine -->
+    <path
+        android:strokeColor="#1F5A46"
+        android:strokeWidth="2.5"
+        android:fillColor="#00000000"
+        android:pathData="M54,54m-46,0a46,46 0,1 1,92 0a46,46 0,1 1,-92 0" />
+    <!-- Open Workbook / Book Spine & Left Page in Deep Pine -->
+    <path
+        android:fillColor="#1F5A46"
+        android:pathData="M28,38 C38,36 49,39 54,44 L54,74 C49,70 38,67 28,69 Z" />
+    <!-- Open Workbook Right Page in Deep Pine -->
+    <path
+        android:fillColor="#1F5A46"
+        android:pathData="M80,38 C70,36 59,39 54,44 L54,74 C59,70 70,67 80,69 Z" />
+    <!-- Gentle Leaf Emblem growing upward in Soft Sage -->
+    <path
+        android:fillColor="#8FA69C"
+        android:pathData="M54,25 C47,32 47,40 54,43 C61,40 61,32 54,25 Z" />
+    <!-- Golden Warm Spark / Focus Star -->
+    <path
+        android:fillColor="#E2B038"
+        android:pathData="M54,31 L55.2,34.2 L58.5,35.5 L55.2,36.8 L54,40 L52.8,36.8 L49.5,35.5 L52.8,34.2 Z" />
+</vector>

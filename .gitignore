@@ -1,0 +1,26 @@
+# Gradle & Android
+.gradle/
+build/
+app/build/
+*.apk
+*.aab
+*.ap_
+local.properties
+.idea/
+*.iml
+.DS_Store
+
+# iOS & Xcode
+ios/CogniApp/build/
+ios/CogniApp/CogniApp.xcodeproj/xcuserdata/
+ios/CogniApp/CogniApp.xcodeproj/project.xcworkspace/xcuserdata/
+ios/CogniApp/CogniApp.xcodeproj/project.xcworkspace/xcshareddata/
+ios/output/
+*.ipa
+*.xcarchive
+DerivedData/
+
+# Windows & OS
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini

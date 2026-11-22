@@ -1,0 +1,63 @@
+name: Build CogniApp iOS & iPadOS (.ipa)
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'ios/**'
+      - '.github/workflows/build-ios-ipa.yml'
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - 'ios/**'
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    name: Test & Package CogniApp.ipa
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Select Xcode 15
+        run: |
+          sudo xcode-select -s /Applications/Xcode_15.4.app || sudo xcode-select -s /Applications/Xcode.app
+          xcodebuild -version
+
+      - name: Install xcpretty and XcodeGen
+        run: |
+          gem install xcpretty --no-document || true
+          brew install xcodegen || true
+
+      - name: Generate Xcode Project with XcodeGen
+        run: |
+          cd ios/CogniApp
+          xcodegen generate
+
+      - name: Run iOS Unit Tests
+        run: |
+          set -o pipefail
+          cd ios/CogniApp
+          xcodebuild test \
+            -project CogniApp.xcodeproj \
+            -scheme CogniApp \
+            -destination "platform=iOS Simulator,name=iPhone 15,OS=latest" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            | xcpretty
+
+      - name: Build & Package IPA
+        run: |
+          chmod +x ios/build_ipa.sh
+          ./ios/build_ipa.sh
+
+      - name: Upload CogniApp.ipa Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CogniApp-iOS-IPA
+          path: ios/output/CogniApp.ipa
+          if-no-files-found: error
+          retention-days: 14
