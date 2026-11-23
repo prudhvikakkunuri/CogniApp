@@ -3,7 +3,10 @@ package com.cogniapp.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cogniapp.data.FruitDeckRepository
+import com.cogniapp.data.InMemoryVoiceStorage
 import com.cogniapp.data.PracticeDeckRepository
+import com.cogniapp.data.VoicePreferenceStorage
+import com.cogniapp.model.CogniVoice
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,13 +32,15 @@ import kotlinx.coroutines.launch
  * - Calm, non-punitive feedback states ([FeedbackState.MATCHED], [FeedbackState.TRY_AGAIN])
  * - Explicit reveal ("Show Answer") ensuring users are never stuck
  * - Optional, non-rushed countdown timer defaulting to OFF (15s duration when enabled)
+ * - Offline TTS voice selection with local persistence
  */
 class PracticeViewModel(
-    private val deckRepository: PracticeDeckRepository = PracticeDeckRepository()
+    private val deckRepository: PracticeDeckRepository = PracticeDeckRepository(),
+    private var voiceStorage: VoicePreferenceStorage = InMemoryVoiceStorage()
 ) : ViewModel() {
 
     // Convenience constructor for backward compatibility with FruitDeckRepository
-    constructor(@Suppress("UNUSED_PARAMETER") fruitDeckRepository: FruitDeckRepository) : this(PracticeDeckRepository())
+    constructor(fruitDeckRepository: FruitDeckRepository) : this(PracticeDeckRepository(), InMemoryVoiceStorage())
 
     private val initialDeck = deckRepository.getDefaultDeck()
     private val allDecks = deckRepository.getAllDecks()
@@ -56,7 +61,8 @@ class PracticeViewModel(
             secondsRemaining = PracticeUiState.DEFAULT_SECONDS,
             isMusicEnabled = false,
             isHapticsAndSoundEnabled = true,
-            sessionResults = emptyList()
+            sessionResults = emptyList(),
+            selectedVoiceName = voiceStorage.getSelectedVoice()
         )
     )
     val uiState: StateFlow<PracticeUiState> = _uiState.asStateFlow()
@@ -566,6 +572,45 @@ class PracticeViewModel(
                 isAnswerRevealed = true,
                 feedbackState = FeedbackState.IDLE
             )
+        }
+    }
+
+    /**
+     * Updates the persistent storage mechanism for voice selection.
+     */
+    fun setVoiceStorage(storage: VoicePreferenceStorage) {
+        this.voiceStorage = storage
+        val storedVoice = storage.getSelectedVoice()
+        if (!storedVoice.isNullOrBlank()) {
+            _uiState.update { state ->
+                state.copy(selectedVoiceName = storedVoice)
+            }
+        }
+    }
+
+    /**
+     * Updates the list of offline voices discovered by the system TTS engine.
+     */
+    fun setAvailableVoices(voices: List<CogniVoice>) {
+        _uiState.update { state ->
+            val activeVoice = state.selectedVoiceName
+                ?: voiceStorage.getSelectedVoice()
+                ?: voices.find { it.isDefault }?.name
+                ?: voices.firstOrNull()?.name
+            state.copy(
+                availableVoices = voices,
+                selectedVoiceName = activeVoice
+            )
+        }
+    }
+
+    /**
+     * Selects and persists the specified offline voice.
+     */
+    fun selectVoice(voiceName: String) {
+        voiceStorage.setSelectedVoice(voiceName)
+        _uiState.update { state ->
+            state.copy(selectedVoiceName = voiceName)
         }
     }
 

@@ -82,6 +82,20 @@
   - **Unit Testing:**
     - Added `CogniAppTests.swift` testing all 10 decks (86 cards), forgiving answer normalization, and 400ms debounce protection.
 
+- [x] **Free Offline Read Aloud Voice Selection (Android & iOS):**
+  - **Android:**
+    - Implemented `CogniTtsController` querying offline English voices via `TextToSpeech.getVoices()` (`!voice.isNetworkConnectionRequired` and locale matching `en`).
+    - Calm speech rate (`0.88f`) and gentle pitch (`0.98f`) with sample preview phrase: *"Hello, this is CogniApp. Practice memory with calm focus."*
+    - Persistent selection via `SharedPreferencesVoiceStorage` and `PracticeViewModel.selectVoice()`.
+    - Added clean Voice Picker row in `HomeScreen.kt` with a sample "Preview" button and accessible `VoicePickerDialog`.
+    - Unit tests in `PracticeViewModelTest.kt` verifying voice state updates and storage restoration.
+  - **iOS & iPadOS:**
+    - Implemented `CogniTtsController.swift` querying offline English voices via `AVSpeechSynthesisVoice.speechVoices()`.
+    - Calm speech rate (`0.45`), gentle pitch (`0.98`), and sample preview.
+    - Persistent selection via `UserDefaults` and `PracticeViewModel.swift`.
+    - Added clean Voice Picker in `HomeScreen.swift` with sample preview button and menu selector.
+    - Unit tests in `CogniAppTests.swift` verifying voice query and persistence.
+
 ## How to Build & Sideload CogniApp on iOS / iPadOS
 ### Option A: Automated Build via GitHub Actions (Recommended from Windows)
 1. Push the code or trigger the **Build CogniApp iOS & iPadOS (.ipa)** workflow from GitHub Actions.

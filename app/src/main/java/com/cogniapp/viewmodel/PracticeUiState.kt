@@ -1,5 +1,6 @@
 package com.cogniapp.viewmodel
 
+import com.cogniapp.model.CogniVoice
 import com.cogniapp.model.PracticeCard
 import com.cogniapp.model.PracticeDeck
 
@@ -96,7 +97,9 @@ data class PracticeUiState(
     val isMusicEnabled: Boolean = false,
     val isHapticsAndSoundEnabled: Boolean = true,
     val isSessionComplete: Boolean = false,
-    val sessionResults: List<SessionCardResult> = emptyList()
+    val sessionResults: List<SessionCardResult> = emptyList(),
+    val availableVoices: List<CogniVoice> = emptyList(),
+    val selectedVoiceName: String? = null
 ) {
     companion object {
         /**
@@ -175,4 +178,12 @@ data class PracticeUiState(
      */
     val skippedCount: Int
         get() = sessionResults.count { it.outcome == CardOutcome.SKIPPED }
+
+    /**
+     * Human-readable display name of the selected TTS voice.
+     */
+    val selectedVoiceDisplayName: String
+        get() = availableVoices.find { it.name == selectedVoiceName }?.displayName
+            ?: availableVoices.firstOrNull()?.displayName
+            ?: "System Default"
 }

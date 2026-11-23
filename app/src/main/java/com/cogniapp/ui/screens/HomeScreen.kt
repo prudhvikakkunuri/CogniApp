@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
@@ -33,6 +34,7 @@ import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.material.icons.filled.MusicOff
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.RecordVoiceOver
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.automirrored.filled.VolumeMute
 import androidx.compose.material.icons.automirrored.filled.VolumeUp
@@ -41,6 +43,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
@@ -63,7 +66,9 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import com.cogniapp.R
+import com.cogniapp.model.CogniVoice
 import com.cogniapp.model.PracticeDeck
 import com.cogniapp.ui.theme.CogniTheme
 import com.cogniapp.viewmodel.PracticeUiState
@@ -87,6 +92,8 @@ fun HomeScreen(
     onToggleMusic: () -> Unit,
     onToggleHapticsAndSound: () -> Unit,
     onToggleDarkMode: () -> Unit = {},
+    onSelectVoice: (String) -> Unit = {},
+    onPreviewVoice: (String) -> Unit = {},
     onStartPractice: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -213,9 +220,14 @@ fun HomeScreen(
                         timerEnabled = uiState.timerEnabled,
                         isMusicEnabled = uiState.isMusicEnabled,
                         isHapticsAndSoundEnabled = uiState.isHapticsAndSoundEnabled,
+                        availableVoices = uiState.availableVoices,
+                        selectedVoiceName = uiState.selectedVoiceName,
+                        selectedVoiceDisplayName = uiState.selectedVoiceDisplayName,
                         onToggleTimer = onToggleTimer,
                         onToggleMusic = onToggleMusic,
-                        onToggleHapticsAndSound = onToggleHapticsAndSound
+                        onToggleHapticsAndSound = onToggleHapticsAndSound,
+                        onSelectVoice = onSelectVoice,
+                        onPreviewVoice = onPreviewVoice
                     )
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -437,16 +449,37 @@ private fun ResponsiveDeckGrid(
  * 1. Optional 15-Second Timer
  * 2. Soothing Background Music
  * 3. Haptic & Feedback Sounds
+ * 4. Free Offline Read Aloud Voice Selection with Preview
  */
 @Composable
 private fun CompactPreferencesCard(
     timerEnabled: Boolean,
     isMusicEnabled: Boolean,
     isHapticsAndSoundEnabled: Boolean,
+    availableVoices: List<CogniVoice>,
+    selectedVoiceName: String?,
+    selectedVoiceDisplayName: String,
     onToggleTimer: () -> Unit,
     onToggleMusic: () -> Unit,
-    onToggleHapticsAndSound: () -> Unit
+    onToggleHapticsAndSound: () -> Unit,
+    onSelectVoice: (String) -> Unit,
+    onPreviewVoice: (String) -> Unit
 ) {
+    var showVoiceDialog by remember { mutableStateOf(false) }
+
+    if (showVoiceDialog) {
+        VoicePickerDialog(
+            availableVoices = availableVoices,
+            selectedVoiceName = selectedVoiceName,
+            onSelectVoice = { voiceName ->
+                onSelectVoice(voiceName)
+                showVoiceDialog = false
+            },
+            onPreviewVoice = onPreviewVoice,
+            onDismiss = { showVoiceDialog = false }
+        )
+    }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -604,6 +637,277 @@ private fun CompactPreferencesCard(
                         uncheckedTrackColor = CogniTheme.colors.badgeBg
                     )
                 )
+            }
+
+            // 4. Free Offline Read Aloud Voice Selection with Preview
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .defaultMinSize(minHeight = 44.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Default.RecordVoiceOver,
+                    contentDescription = null,
+                    modifier = Modifier.size(20.dp),
+                    tint = CogniTheme.colors.primaryAction
+                )
+                Spacer(modifier = Modifier.width(10.dp))
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clip(RoundedCornerShape(6.dp))
+                        .clickable { showVoiceDialog = true }
+                        .semantics {
+                            role = Role.Button
+                            contentDescription = "Read aloud voice: $selectedVoiceDisplayName. Tap to change voice."
+                        }
+                ) {
+                    Text(
+                        text = "Read Aloud Voice",
+                        style = CogniTheme.typography.titleMedium.copy(
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.SemiBold
+                        ),
+                        color = CogniTheme.colors.primaryInk
+                    )
+                    Text(
+                        text = selectedVoiceDisplayName,
+                        style = CogniTheme.typography.bodyLarge.copy(fontSize = 11.sp, lineHeight = 15.sp),
+                        color = CogniTheme.colors.secondaryInk,
+                        maxLines = 1
+                    )
+                }
+                Spacer(modifier = Modifier.width(6.dp))
+                // Preview Voice Sample Button
+                OutlinedButton(
+                    onClick = {
+                        val activeVoice = selectedVoiceName ?: availableVoices.firstOrNull()?.name ?: ""
+                        onPreviewVoice(activeVoice)
+                    },
+                    modifier = Modifier
+                        .defaultMinSize(minHeight = 32.dp)
+                        .semantics {
+                            role = Role.Button
+                            contentDescription = "Preview voice sample"
+                        },
+                    shape = RoundedCornerShape(8.dp),
+                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, CogniTheme.colors.cardBorder),
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        containerColor = CogniTheme.colors.surface,
+                        contentColor = CogniTheme.colors.primaryInk
+                    )
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.VolumeUp,
+                        contentDescription = null,
+                        modifier = Modifier.size(13.dp),
+                        tint = CogniTheme.colors.primaryAction
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "Preview",
+                        style = CogniTheme.typography.labelLarge.copy(fontSize = 11.sp, fontWeight = FontWeight.SemiBold),
+                        color = CogniTheme.colors.primaryInk,
+                        maxLines = 1,
+                        softWrap = false
+                    )
+                }
+                Spacer(modifier = Modifier.width(4.dp))
+                // Change Voice Button
+                OutlinedButton(
+                    onClick = { showVoiceDialog = true },
+                    modifier = Modifier
+                        .defaultMinSize(minHeight = 32.dp)
+                        .semantics {
+                            role = Role.Button
+                            contentDescription = "Change read aloud voice"
+                        },
+                    shape = RoundedCornerShape(8.dp),
+                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, CogniTheme.colors.cardBorder),
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        containerColor = CogniTheme.colors.surface,
+                        contentColor = CogniTheme.colors.primaryInk
+                    )
+                ) {
+                    Text(
+                        text = "Change",
+                        style = CogniTheme.typography.labelLarge.copy(fontSize = 11.sp, fontWeight = FontWeight.SemiBold),
+                        color = CogniTheme.colors.primaryInk,
+                        maxLines = 1,
+                        softWrap = false
+                    )
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Clean, accessible dialog for selecting an offline Read Aloud (TTS) voice.
+ */
+@Composable
+private fun VoicePickerDialog(
+    availableVoices: List<CogniVoice>,
+    selectedVoiceName: String?,
+    onSelectVoice: (String) -> Unit,
+    onPreviewVoice: (String) -> Unit,
+    onDismiss: () -> Unit
+) {
+    val scrollState = rememberScrollState()
+
+    Dialog(onDismissRequest = onDismiss) {
+        Surface(
+            shape = RoundedCornerShape(18.dp),
+            color = CogniTheme.colors.surface,
+            border = androidx.compose.foundation.BorderStroke(1.5.dp, CogniTheme.colors.cardBorder),
+            modifier = Modifier
+                .fillMaxWidth()
+                .widthIn(max = 500.dp)
+                .padding(8.dp)
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(scrollState)
+                    .padding(20.dp)
+            ) {
+                Text(
+                    text = "Read Aloud Voice",
+                    style = CogniTheme.typography.headlineMedium.copy(
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold
+                    ),
+                    color = CogniTheme.colors.primaryInk
+                )
+                Text(
+                    text = "Select an offline English voice:",
+                    style = CogniTheme.typography.bodyLarge.copy(fontSize = 13.sp),
+                    color = CogniTheme.colors.secondaryInk
+                )
+
+                Spacer(modifier = Modifier.height(14.dp))
+
+                if (availableVoices.isEmpty()) {
+                    Text(
+                        text = "System Default Voice (Offline)",
+                        style = CogniTheme.typography.bodyLarge.copy(fontSize = 14.sp),
+                        color = CogniTheme.colors.primaryInk,
+                        modifier = Modifier.padding(vertical = 12.dp)
+                    )
+                } else {
+                    availableVoices.forEach { voice ->
+                        val isSelected = voice.name == selectedVoiceName ||
+                                (selectedVoiceName == null && voice.isDefault)
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .defaultMinSize(minHeight = 48.dp)
+                                .clip(RoundedCornerShape(10.dp))
+                                .background(if (isSelected) CogniTheme.colors.selectedOptionBg else CogniTheme.colors.surface)
+                                .border(
+                                    1.5.dp,
+                                    if (isSelected) CogniTheme.colors.primaryAction else CogniTheme.colors.cardBorder,
+                                    RoundedCornerShape(10.dp)
+                                )
+                                .clickable { onSelectVoice(voice.name) }
+                                .padding(horizontal = 12.dp, vertical = 8.dp)
+                                .semantics {
+                                    role = Role.Button
+                                    contentDescription = "${voice.displayName}${if (isSelected) ", selected" else ""}"
+                                },
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    text = voice.displayName,
+                                    style = CogniTheme.typography.titleMedium.copy(
+                                        fontSize = 14.sp,
+                                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium
+                                    ),
+                                    color = if (isSelected) CogniTheme.colors.primaryAction else CogniTheme.colors.primaryInk
+                                )
+                                Text(
+                                    text = voice.locale,
+                                    style = CogniTheme.typography.bodyLarge.copy(fontSize = 11.sp),
+                                    color = CogniTheme.colors.secondaryInk
+                                )
+                            }
+
+                            // Sample preview button for each voice in dialog
+                            OutlinedButton(
+                                onClick = { onPreviewVoice(voice.name) },
+                                modifier = Modifier
+                                    .defaultMinSize(minHeight = 30.dp),
+                                shape = RoundedCornerShape(8.dp),
+                                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, CogniTheme.colors.cardBorder),
+                                colors = ButtonDefaults.outlinedButtonColors(
+                                    containerColor = CogniTheme.colors.surface,
+                                    contentColor = CogniTheme.colors.primaryInk
+                                )
+                            ) {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Filled.VolumeUp,
+                                    contentDescription = "Test voice sample",
+                                    modifier = Modifier.size(13.dp),
+                                    tint = CogniTheme.colors.primaryAction
+                                )
+                                Spacer(modifier = Modifier.width(4.dp))
+                                Text(
+                                    text = "Test",
+                                    style = CogniTheme.typography.labelLarge.copy(fontSize = 11.sp),
+                                    color = CogniTheme.colors.primaryInk
+                                )
+                            }
+
+                            if (isSelected) {
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Box(
+                                    modifier = Modifier
+                                        .background(CogniTheme.colors.primaryAction, RoundedCornerShape(6.dp))
+                                        .padding(horizontal = 6.dp, vertical = 2.dp)
+                                ) {
+                                    Text(
+                                        text = "✓",
+                                        style = CogniTheme.typography.labelLarge.copy(
+                                            fontSize = 12.sp,
+                                            fontWeight = FontWeight.Bold
+                                        ),
+                                        color = CogniTheme.colors.primaryActionText
+                                    )
+                                }
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(8.dp))
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // Done Button
+                Button(
+                    onClick = onDismiss,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .defaultMinSize(minHeight = 44.dp),
+                    shape = RoundedCornerShape(10.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = CogniTheme.colors.primaryAction,
+                        contentColor = CogniTheme.colors.primaryActionText
+                    )
+                ) {
+                    Text(
+                        text = "Done",
+                        style = CogniTheme.typography.titleMedium.copy(
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold
+                        ),
+                        color = CogniTheme.colors.primaryActionText
+                    )
+                }
             }
         }
     }

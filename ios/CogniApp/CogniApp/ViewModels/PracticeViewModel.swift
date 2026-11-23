@@ -37,12 +37,22 @@ public final class PracticeViewModel: ObservableObject {
     @Published public var isSessionComplete: Bool = false
     @Published public var sessionResults: [SessionCardResult] = []
 
+    @Published public var availableVoices: [CogniVoice] = []
+    @Published public var selectedVoiceIdentifier: String? = nil
+
+    private static let selectedVoiceKey = "cogniapp_selected_voice_id"
+
     // MARK: - Initializer
     public init() {
         let initialDeck = deckRepository.getDefaultDeck()
         self.currentDeck = initialDeck
         self.availableDecks = deckRepository.getAllDecks()
         self.cards = initialDeck.cards.shuffled()
+
+        let voices = CogniTtsController.shared.queryAvailableVoices()
+        self.availableVoices = voices
+        let savedVoice = UserDefaults.standard.string(forKey: Self.selectedVoiceKey)
+        self.selectedVoiceIdentifier = savedVoice ?? voices.first(where: { $0.isDefault })?.id ?? voices.first?.id
     }
 
     // MARK: - Computed Properties
@@ -77,6 +87,23 @@ public final class PracticeViewModel: ObservableObject {
 
     public var palette: CogniThemePalette {
         CogniThemePalette(isDark: isDarkMode)
+    }
+
+    public var selectedVoiceDisplayName: String {
+        if let id = selectedVoiceIdentifier, let match = availableVoices.first(where: { $0.id == id }) {
+            return match.name
+        }
+        return availableVoices.first?.name ?? "System Default (English)"
+    }
+
+    public func selectVoice(identifier: String) {
+        self.selectedVoiceIdentifier = identifier
+        UserDefaults.standard.set(identifier, forKey: Self.selectedVoiceKey)
+    }
+
+    public func previewVoice(identifier: String? = nil) {
+        let voiceId = identifier ?? selectedVoiceIdentifier
+        CogniTtsController.shared.previewVoice(identifier: voiceId)
     }
 
     // MARK: - Session Flow

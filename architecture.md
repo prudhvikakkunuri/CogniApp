@@ -66,8 +66,15 @@
 - `isHapticsAndSoundEnabled: Boolean` (default `true`, alias: `hapticSoundEnabled`)
 - `isSessionComplete: Boolean`
 - `sessionResults: List<SessionCardResult>` (recorded card-by-card outcomes for the active session)
+- `availableVoices: List<CogniVoice>` (queried offline English TTS voices)
+- `selectedVoiceName: String?` (persistent voice selection identifier)
 
-## 4. Bundled Offline Decks (10 Decks Total)
+## 4. Text-to-Speech (TTS) Architecture
+- `CogniVoice`: Immutable model representing an offline voice (`name`, `displayName`, `locale`, `isDefault`).
+- `CogniTtsController`: Wraps `TextToSpeech` on Android (`AVSpeechSynthesizer` on iOS). Filters for offline English voices (`!voice.isNetworkConnectionRequired` and locale matching `en`), sets calm speech rate (`0.88f` on Android, `0.45` on iOS) and pitch (`0.98f`), and supports sample preview phrases.
+- `VoicePreferenceStorage`: Interface for persisting selected voice preference across process restarts with `SharedPreferencesVoiceStorage` for Android runtime, `UserDefaults` on iOS, and `InMemoryVoiceStorage` for JVM unit tests.
+
+## 5. Bundled Offline Decks (10 Decks Total)
 1. **Fruits (`Guess the Fruit` — 12 cards):** Pear, Apple, Banana, Orange, Strawberry, Guava, Lemon, Grape, Kiwi, Watermelon, Mango, Peach
 2. **Vegetables (`Guess the Vegetable` — 10 cards):** Carrot, Potato, Broccoli, Onion, Tomato, Spinach, Corn, Cucumber, Pumpkin, Peas
 3. **Animals (`Guess the Animal` — 10 cards):** Dog, Cat, Elephant, Giraffe, Cow, Lion, Bird, Fish, Horse, Duck

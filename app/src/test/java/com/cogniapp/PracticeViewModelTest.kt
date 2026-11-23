@@ -473,4 +473,43 @@ class PracticeViewModelTest {
         viewModel.startPractice()
         assertEquals(0, viewModel.uiState.value.sessionResults.size)
     }
+
+    @Test
+    fun voiceSelection_updatesUiStateAndPersistsToStorage() {
+        val testStorage = com.cogniapp.data.InMemoryVoiceStorage()
+        val vm = PracticeViewModel(deckRepository, testStorage)
+
+        val testVoices = listOf(
+            com.cogniapp.model.CogniVoice(name = "en-us-x-sfg#female", displayName = "English (US) Calm Voice 1", locale = "en_US", isDefault = true),
+            com.cogniapp.model.CogniVoice(name = "en-gb-x-rjs#male", displayName = "English (UK) Gentle Voice 2", locale = "en_GB", isDefault = false)
+        )
+
+        vm.setAvailableVoices(testVoices)
+        assertEquals(2, vm.uiState.value.availableVoices.size)
+        assertEquals("en-us-x-sfg#female", vm.uiState.value.selectedVoiceName)
+        assertEquals("English (US) Calm Voice 1", vm.uiState.value.selectedVoiceDisplayName)
+
+        // Select second voice
+        vm.selectVoice("en-gb-x-rjs#male")
+        assertEquals("en-gb-x-rjs#male", vm.uiState.value.selectedVoiceName)
+        assertEquals("English (UK) Gentle Voice 2", vm.uiState.value.selectedVoiceDisplayName)
+        assertEquals("en-gb-x-rjs#male", testStorage.getSelectedVoice())
+    }
+
+    @Test
+    fun voiceSelection_restoresFromStorageOnInit() {
+        val preloadedStorage = com.cogniapp.data.InMemoryVoiceStorage("en-gb-x-rjs#male")
+        val vm = PracticeViewModel(deckRepository, preloadedStorage)
+
+        assertEquals("en-gb-x-rjs#male", vm.uiState.value.selectedVoiceName)
+
+        val testVoices = listOf(
+            com.cogniapp.model.CogniVoice(name = "en-us-x-sfg#female", displayName = "English (US) Calm Voice 1", locale = "en_US", isDefault = true),
+            com.cogniapp.model.CogniVoice(name = "en-gb-x-rjs#male", displayName = "English (UK) Gentle Voice 2", locale = "en_GB", isDefault = false)
+        )
+        vm.setAvailableVoices(testVoices)
+        // Stored voice must take precedence over default
+        assertEquals("en-gb-x-rjs#male", vm.uiState.value.selectedVoiceName)
+        assertEquals("English (UK) Gentle Voice 2", vm.uiState.value.selectedVoiceDisplayName)
+    }
 }

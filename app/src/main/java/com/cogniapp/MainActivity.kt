@@ -9,6 +9,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.cogniapp.audio.CogniAudioController
+import com.cogniapp.audio.CogniTtsController
+import com.cogniapp.data.SharedPreferencesVoiceStorage
 import com.cogniapp.ui.screens.GameScreen
 import com.cogniapp.ui.screens.HomeScreen
 import com.cogniapp.ui.theme.CogniAppTheme
@@ -19,9 +21,16 @@ class MainActivity : ComponentActivity() {
 
     private val viewModel: PracticeViewModel by viewModels()
     private val audioController by lazy { CogniAudioController(this) }
+    private val ttsController by lazy {
+        CogniTtsController(this) { voices ->
+            viewModel.setAvailableVoices(voices)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.setVoiceStorage(SharedPreferencesVoiceStorage(applicationContext))
+
         setContent {
             val uiState by viewModel.uiState.collectAsState()
 
@@ -60,6 +69,13 @@ class MainActivity : ComponentActivity() {
                         onToggleMusic = viewModel::toggleMusic,
                         onToggleHapticsAndSound = viewModel::toggleHapticsAndSound,
                         onToggleDarkMode = viewModel::toggleDarkMode,
+                        onSelectVoice = { voiceName ->
+                            viewModel.selectVoice(voiceName)
+                            ttsController.setVoice(voiceName)
+                        },
+                        onPreviewVoice = { voiceName ->
+                            ttsController.previewVoice(voiceName)
+                        },
                         onStartPractice = viewModel::startPractice
                     )
                 } else {
@@ -100,5 +116,6 @@ class MainActivity : ComponentActivity() {
     override fun onDestroy() {
         super.onDestroy()
         audioController.release()
+        ttsController.shutdown()
     }
 }

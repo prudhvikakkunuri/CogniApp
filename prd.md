@@ -42,6 +42,11 @@
    - Adapts cleanly from compact phones to larger tablets with `Modifier.widthIn(max = 680.dp)` content constraints, 2-to-3 column responsive grids, and pinned action bars (`Scaffold` + `bottomBar` + `navigationBarsPadding()`).
 8. **Offline-First Library (86 Cards Total Across 10 Decks):**
    - 100% offline execution with zero network dependency.
+9. **Free Offline Read Aloud Voice Selection (TTS):**
+   - Free, 100% offline TTS voice selection querying installed English voices on Android (`TextToSpeech.getVoices()` with `!voice.isNetworkConnectionRequired`) and iOS (`AVSpeechSynthesisVoice.speechVoices()`).
+   - Clean, uncluttered Voice Picker on `HomeScreen` with a sample "Preview" button speaking *"Hello, this is CogniApp. Practice memory with calm focus."*
+   - Calm, unhurried speech pacing (speech rate 0.88f on Android, 0.45 on iOS, gentle pitch 0.98f).
+   - Selection persisted across sessions and app launches via local storage (`SharedPreferences` on Android, `UserDefaults` on iOS).
 
 ## 4. Non-Goals (v1)
 - No medical diagnosis, clinical assessment, or cognitive scoring claims.

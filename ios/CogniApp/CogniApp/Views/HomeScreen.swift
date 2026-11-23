@@ -177,6 +177,70 @@ public struct HomeScreen: View {
                                 .labelsHidden()
                                 .tint(palette.primaryAction)
                             }
+
+                            Divider()
+                                .background(palette.cardBorder)
+
+                            // Read Aloud Voice Selection with Preview
+                            HStack {
+                                VStack(alignment: .leading, spacing: 2) {
+                                    HStack(spacing: 6) {
+                                        Image(systemName: "waveform.and.mic")
+                                            .foregroundColor(palette.primaryInk)
+                                        Text("Read Aloud Voice")
+                                            .font(CogniTypography.bodyBold(size: 15))
+                                            .foregroundColor(palette.primaryInk)
+                                    }
+                                    Text(viewModel.selectedVoiceDisplayName)
+                                        .font(CogniTypography.caption(size: 12))
+                                        .foregroundColor(palette.secondaryInk)
+                                        .lineLimit(1)
+                                }
+                                Spacer()
+
+                                // Preview sample button
+                                Button(action: {
+                                    viewModel.previewVoice()
+                                }) {
+                                    HStack(spacing: 4) {
+                                        Image(systemName: "speaker.wave.2.fill")
+                                            .font(.system(size: 11, weight: .semibold))
+                                        Text("Preview")
+                                            .font(CogniTypography.bodyBold(size: 12))
+                                    }
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 6)
+                                    .background(palette.cardBorder.opacity(0.35))
+                                    .foregroundColor(palette.primaryInk)
+                                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                                }
+                                .accessibilityLabel("Preview selected read aloud voice")
+
+                                // Voice Picker Menu
+                                Menu {
+                                    ForEach(viewModel.availableVoices) { voice in
+                                        Button(action: {
+                                            viewModel.selectVoice(identifier: voice.id)
+                                        }) {
+                                            HStack {
+                                                Text(voice.name)
+                                                if voice.id == viewModel.selectedVoiceIdentifier {
+                                                    Image(systemName: "checkmark")
+                                                }
+                                            }
+                                        }
+                                    }
+                                } label: {
+                                    Text("Change")
+                                        .font(CogniTypography.bodyBold(size: 12))
+                                        .padding(.horizontal, 10)
+                                        .padding(.vertical, 6)
+                                        .background(palette.primaryAction)
+                                        .foregroundColor(palette.primaryActionText)
+                                        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                                }
+                                .accessibilityLabel("Change read aloud voice")
+                            }
                         }
                         .padding(14)
                         .background(palette.surface)

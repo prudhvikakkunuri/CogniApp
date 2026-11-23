@@ -249,4 +249,27 @@ final class CogniAppTests: XCTestCase {
         XCTAssertEqual(viewModel.currentIndex, 0)
         XCTAssertEqual(viewModel.sessionResults.count, 0)
     }
+
+    // MARK: - 9. Offline Read Aloud TTS Voice Tests
+    func testTtsVoiceQueryAndDefault() {
+        let voices = CogniTtsController.shared.queryAvailableVoices()
+        XCTAssertFalse(voices.isEmpty, "Querying voices should always return at least system default English voice")
+        for voice in voices {
+            XCTAssertFalse(voice.id.isEmpty)
+            XCTAssertFalse(voice.name.isEmpty)
+            XCTAssertFalse(voice.language.isEmpty)
+        }
+    }
+
+    func testVoiceSelectionAndPersistence() {
+        let viewModel = PracticeViewModel()
+        XCTAssertFalse(viewModel.availableVoices.isEmpty)
+        XCTAssertFalse(viewModel.selectedVoiceDisplayName.isEmpty)
+
+        // Select a custom voice
+        let customId = "com.apple.speech.voice.Alex"
+        viewModel.selectVoice(identifier: customId)
+        XCTAssertEqual(viewModel.selectedVoiceIdentifier, customId)
+        XCTAssertEqual(UserDefaults.standard.string(forKey: "cogniapp_selected_voice_id"), customId)
+    }
 }
