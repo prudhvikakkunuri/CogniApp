@@ -39,15 +39,21 @@ fi
 
 if [ "$RUN_TESTS" = true ]; then
     echo "🧪 Running iOS unit tests..."
-    set -o pipefail
-    xcodebuild test \
-        -project CogniApp.xcodeproj \
-        -scheme CogniApp \
-        -destination "platform=iOS Simulator,name=iPhone 15,OS=latest" \
-        CODE_SIGNING_ALLOWED=NO \
-        CODE_SIGNING_REQUIRED=NO \
-        CODE_SIGN_IDENTITY="" \
-        | (command -v xcpretty &> /dev/null && xcpretty || cat)
+    SIM_ID=$(xcrun simctl list devices available | grep -E "iPhone" | grep -o -E '[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}' | head -n 1)
+    if [ -z "$SIM_ID" ]; then
+        SIM_ID=$(xcrun simctl list devices available | grep -o -E '[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}' | head -n 1)
+    fi
+    echo "Using Simulator ID: $SIM_ID"
+    if [ -n "$SIM_ID" ]; then
+        xcodebuild test \
+            -project CogniApp.xcodeproj \
+            -scheme CogniApp \
+            -destination "platform=iOS Simulator,id=$SIM_ID" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            | (command -v xcpretty &> /dev/null && xcpretty || cat)
+    fi
 fi
 
 echo "📦 Archiving CogniApp with xcodebuild..."
@@ -69,10 +75,10 @@ if [ ! -d "${ARCHIVE_PATH}" ]; then
 fi
 
 echo "📦 Packaging IPA for sideloading (AltStore / SideStore / Sideloadly / Xcode)..."
-APP_PATH="${ARCHIVE_PATH}/Products/Applications/CogniApp.app"
+APP_PATH=$(find "${ARCHIVE_PATH}/Products/Applications" -name "*.app" -maxdepth 1 | head -n 1 || true)
 
-if [ ! -d "${APP_PATH}" ]; then
-    echo "❌ Application bundle not found at ${APP_PATH}"
+if [ -z "${APP_PATH}" ] || [ ! -d "${APP_PATH}" ]; then
+    echo "❌ Application bundle not found under ${ARCHIVE_PATH}/Products/Applications"
     exit 1
 fi
 
