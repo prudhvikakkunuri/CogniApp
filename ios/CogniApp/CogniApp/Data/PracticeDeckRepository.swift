@@ -143,7 +143,7 @@ public final class PracticeDeckRepository {
                 options: ["Peach", "Plum", "Apricot", "Cherry"],
                 correctAnswer: "Peach",
                 emoji: "🍑"
-            
+            )
         ]
     )
     public static let vegetablesDeck = PracticeDeck(
@@ -252,7 +252,7 @@ public final class PracticeDeckRepository {
                 options: ["Peas", "Beans", "Edamame", "Corn"],
                 correctAnswer: "Peas",
                 emoji: "🫛"
-            
+            )
         ]
     )
     public static let animalsDeck = PracticeDeck(
@@ -361,7 +361,7 @@ public final class PracticeDeckRepository {
                 options: ["Duck", "Swan", "Goose", "Penguin"],
                 correctAnswer: "Duck",
                 emoji: "🦆"
-            
+            )
         ]
     )
     public static let dailyObjectsDeck = PracticeDeck(
@@ -470,7 +470,7 @@ public final class PracticeDeckRepository {
                 options: ["Cup", "Bowl", "Plate", "Jug"],
                 correctAnswer: "Cup",
                 emoji: "☕"
-            
+            )
         ]
     )
     public static let foodDrinksDeck = PracticeDeck(
@@ -579,7 +579,7 @@ public final class PracticeDeckRepository {
                 options: ["Pizza", "Pie", "Sandwich", "Pasta"],
                 correctAnswer: "Pizza",
                 emoji: "🍕"
-            
+            )
         ]
     )
     public static let colorsShapesDeck = PracticeDeck(
@@ -668,7 +668,7 @@ public final class PracticeDeckRepository {
                 options: ["Triangle", "Rectangle", "Square", "Diamond"],
                 correctAnswer: "Triangle",
                 emoji: "🔺"
-            
+            )
         ]
     )
     public static let clothesWearablesDeck = PracticeDeck(
@@ -757,7 +757,7 @@ public final class PracticeDeckRepository {
                 options: ["Scarf", "Tie", "Belt", "Collar"],
                 correctAnswer: "Scarf",
                 emoji: "🧣"
-            
+            )
         ]
     )
     public static let natureWeatherDeck = PracticeDeck(
@@ -846,7 +846,7 @@ public final class PracticeDeckRepository {
                 options: ["Moon", "Sun", "Star", "Planet"],
                 correctAnswer: "Moon",
                 emoji: "🌙"
-            
+            )
         ]
     )
     public static let dailyRoutinesDeck = PracticeDeck(
@@ -935,7 +935,7 @@ public final class PracticeDeckRepository {
                 options: ["Gardening", "Sewing", "Painting", "Knitting"],
                 correctAnswer: "Gardening",
                 emoji: "🪴"
-            
+            )
         ]
     )
 
